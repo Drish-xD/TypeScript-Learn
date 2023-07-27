@@ -1,4 +1,4 @@
-import { faker } from "@faker-js/faker";
+import { faker } from '@faker-js/faker';
 
 export class User {
   name: string;
@@ -8,10 +8,10 @@ export class User {
   };
 
   constructor() {
-    this.name = faker.name.findName();
+    this.name = faker.person.fullName();
     this.location = {
-      lat: parseFloat(faker.address.longitude()),
-      lng: parseFloat(faker.address.latitude()),
+      lat: faker.location.latitude(),
+      lng: faker.location.longitude(),
     };
   }
 }
