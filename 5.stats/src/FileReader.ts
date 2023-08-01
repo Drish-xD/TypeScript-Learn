@@ -1,4 +1,4 @@
-import fs from 'fs';
+import { readFileSync } from 'fs';
 
 export class FileReader {
   data: string[][] = [];
@@ -6,10 +6,9 @@ export class FileReader {
   constructor(private filepath: string) {}
 
   read(): void {
-    this.data = fs
-      .readFileSync(this.filepath, {
-        encoding: 'utf-8',
-      })
+    this.data = readFileSync(this.filepath, {
+      encoding: 'utf-8',
+    })
       .split('\n')
       .map((match: string): string[] => match.split(','));
   }
