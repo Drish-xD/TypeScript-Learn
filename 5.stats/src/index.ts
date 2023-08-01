@@ -1,17 +1,11 @@
-import { FileReader } from './FileReader';
-import { WinsAnalysis } from './Match/Analyzers/WinAnalysis';
 import { MatchReader } from './Match/MatchReader';
-import { HTMLReport } from './Match/Reports/HTMLReport';
 import { Summary } from './Match/Summary';
-import { ConsoleReport } from './Match/Reports/ConsoleReport';
 
-const reader = new FileReader('./data/football.csv');
-
-const file = new MatchReader(reader);
+const file = MatchReader.fromCSV('./data/football.csv');
 file.load();
 
-const report = new Summary(new WinsAnalysis('Man United'), new ConsoleReport());
+const report = Summary.consoleReport('Man United');
 report.buildAndPrintReport(file.matches);
 
-const htmlReport = new Summary(new WinsAnalysis('Man United'), new HTMLReport());
+const htmlReport = Summary.genHTMLReport('Man United');
 htmlReport.buildAndPrintReport(file.matches);

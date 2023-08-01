@@ -1,5 +1,6 @@
-import { stringToDate } from './utils';
+import { FileReader } from '../FileReader';
 import { MatchData, MatchResult } from './types';
+import { stringToDate } from './utils';
 
 interface DataReader {
   read(): void;
@@ -10,6 +11,10 @@ export class MatchReader {
   matches: MatchData[] = [];
 
   constructor(private reader: DataReader) {}
+
+  static fromCSV(filePath: string) {
+    return new MatchReader(new FileReader(filePath));
+  }
 
   load(): void {
     this.reader.read();
