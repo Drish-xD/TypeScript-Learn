@@ -1,16 +1,16 @@
 import type { UserProps } from '../types/types';
-import { Events } from './Events';
+import { ApiSync } from './ApiSync';
+import { Attributes } from './Attributes';
+import { Collection } from './Collection';
+import { Eventing } from './Events';
+import { Model } from './Model';
 
-export class User {
-  events: Events = new Events();
-
-  constructor(protected data: UserProps) {}
-
-  get(propName: string): string | number {
-    return this.data[propName as keyof UserProps]!;
+export class User extends Model<UserProps> {
+  static buildUser(attrs: UserProps): User {
+    return new User(new Attributes<UserProps>(attrs), new ApiSync<UserProps>(), new Eventing());
   }
 
-  set(updatedData: UserProps): void {
-    Object.assign(this.data, updatedData);
+  static buildUserCollection(): Collection<User, UserProps> {
+    return new Collection<User, UserProps>((json: UserProps) => User.buildUser(json));
   }
 }
